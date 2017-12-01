@@ -1,0 +1,133 @@
+Оптимизация:
+Простые запросы:
+1)
+SELECT name AS team FROM teams WHERE region = 1;
+До Индексации:
+'Seq Scan on teams  (cost=0.00..1.24 rows=1 width=32) (actual time=0.033..0.038 rows=4 loops=1)'
+'Execution time: 0.063 ms'
+После Индексации:
+'Index Scan using teams_region_idx on teams  (cost=0.14..8.15 rows=1 width=32) (actual time=0.106..0.110 rows=4 loops=1)'
+'Execution time: 0.164 ms'
+
+2)
+SELECT name AS tournament FROM tournaments WHERE prize >= 1000000 AND date_begin > current_date - interval '1 month';
+До Индексации:
+'Seq Scan on tournaments  (cost=0.00..1.23 rows=1 width=32) (actual time=0.038..0.043 rows=1 loops=1)'
+'Execution time: 0.070 ms'
+После Индексации:
+'Index Scan using tournaments_prize_idx3 on tournaments  (cost=0.14..8.22 rows=1 width=32) (actual time=0.121..0.136 rows=1 loops=1)'
+'Execution time: 0.351 ms'
+
+3)
+SELECT team AS team_id FROM tournaments_results WHERE tournament = 10 ORDER BY percent DESC;
+До Индексации:
+'  ->  Seq Scan on tournaments_results  (cost=0.00..1.13 rows=1 width=8) (actual time=10.850..10.855 rows=6 loops=1)'
+'Execution time: 0.120 ms'
+После Индексации:
+'  ->  Index Scan using tournaments_results_tournament_idx1 on tournaments_results  (cost=0.14..8.15 rows=1 width=8) (actual time=0.058..0.064 rows=6 loops=1)'
+'Execution time: 0.130 ms'
+
+Средние запросы:
+1)
+SELECT nik_name, players.name AS real_name FROM players INNER JOIN roles ON players.role = roles.id WHERE roles.name = 'semi-support' ORDER BY age;
+
+До Индексации:
+'Sort  (cost=2.77..2.79 rows=8 width=68) (actual time=0.197..0.198 rows=8 loops=1)'
+'  Sort Key: players.age'
+'  Sort Method: quicksort  Memory: 25kB'
+'  ->  Hash Join  (cost=1.08..2.65 rows=8 width=68) (actual time=0.142..0.161 rows=8 loops=1)'
+'        Hash Cond: (players.role = roles.id)'
+'        ->  Seq Scan on players  (cost=0.00..1.41 rows=41 width=72) (actual time=0.065..0.070 rows=41 loops=1)'
+'        ->  Hash  (cost=1.06..1.06 rows=1 width=4) (actual time=0.040..0.040 rows=1 loops=1)'
+'              Buckets: 1024  Batches: 1  Memory Usage: 9kB'
+'              ->  Seq Scan on roles  (cost=0.00..1.06 rows=1 width=4) (actual time=0.028..0.029 rows=1 loops=1)'
+'                    Filter: (name = 'semi-support'::text)'
+'                    Rows Removed by Filter: 4'
+'Planning time: 1.185 ms'
+'Execution time: 0.275 ms'
+
+После Индексации:
+'Sort  (cost=16.44..16.46 rows=8 width=68) (actual time=0.249..0.250 rows=8 loops=1)'
+'  Sort Key: players.age'
+'  Sort Method: quicksort  Memory: 25kB'
+'  ->  Nested Loop  (cost=0.27..16.32 rows=8 width=68) (actual time=0.211..0.221 rows=8 loops=1)'
+'        ->  Index Scan using roles_name_idx1 on roles  (cost=0.13..8.15 rows=1 width=4) (actual time=0.145..0.146 rows=1 loops=1)'
+'              Index Cond: (name = 'semi-support'::text)'
+'        ->  Index Scan using players_role_idx2 on players  (cost=0.14..8.16 rows=1 width=72) (actual time=0.056..0.060 rows=8 loops=1)'
+'              Index Cond: (role = roles.id)'
+'Planning time: 2.028 ms'
+'Execution time: 0.397 ms'
+
+2)SELECT nik_name AS nik, temp.name, temp.country_name, teams.name AS team FROM teams LEFT JOIN (SELECT players.nik_name, players.name, players.age, countries.name AS country_name, team, region FROM players INNER JOIN countries ON players.country = countries.id) AS temp ON temp.team = teams.id WHERE teams.region = temp.region ORDER BY age;
+
+До Индексации:
+'Sort  (cost=5.04..5.04 rows=1 width=132) (actual time=0.316..0.321 rows=31 loops=1)'
+'  Sort Key: players.age'
+'  Sort Method: quicksort  Memory: 27kB'
+'  ->  Hash Join  (cost=3.30..5.03 rows=1 width=132) (actual time=0.235..0.268 rows=31 loops=1)'
+'        Hash Cond: ((players.country = countries.id) AND (players.team = teams.id))'
+'        ->  Seq Scan on players  (cost=0.00..1.41 rows=41 width=76) (actual time=0.068..0.074 rows=41 loops=1)'
+'        ->  Hash  (cost=3.02..3.02 rows=19 width=72) (actual time=0.145..0.145 rows=64 loops=1)'
+'              Buckets: 1024  Batches: 1  Memory Usage: 12kB'
+'              ->  Hash Join  (cost=1.43..3.02 rows=19 width=72) (actual time=0.077..0.108 rows=64 loops=1)'
+'                    Hash Cond: (countries.region = teams.region)'
+'                    ->  Seq Scan on countries  (cost=0.00..1.29 rows=29 width=40) (actual time=0.019..0.020 rows=29 loops=1)'
+'                    ->  Hash  (cost=1.19..1.19 rows=19 width=40) (actual time=0.043..0.043 rows=19 loops=1)'
+'                          Buckets: 1024  Batches: 1  Memory Usage: 9kB'
+'                          ->  Seq Scan on teams  (cost=0.00..1.19 rows=19 width=40) (actual time=0.020..0.030 rows=19 loops=1)'
+'Planning time: 1.061 ms'
+'Execution time: 0.538 ms'
+
+После Индексации:
+'Sort  (cost=36.63..36.64 rows=1 width=132) (actual time=0.650..0.655 rows=31 loops=1)'
+'  Sort Key: players.age'
+'  Sort Method: quicksort  Memory: 27kB'
+'  ->  Nested Loop  (cost=12.94..36.62 rows=1 width=132) (actual time=0.204..0.601 rows=31 loops=1)'
+'        Join Filter: (teams.id = players.team)'
+'        Rows Removed by Join Filter: 98'
+'        ->  Hash Join  (cost=12.80..25.53 rows=19 width=72) (actual time=0.132..0.202 rows=64 loops=1)'
+'              Hash Cond: (countries.region = teams.region)'
+'              ->  Index Scan using countries_pk on countries  (cost=0.14..12.57 rows=29 width=40) (actual time=0.017..0.033 rows=29 loops=1)'
+'              ->  Hash  (cost=12.42..12.42 rows=19 width=40) (actual time=0.100..0.100 rows=19 loops=1)'
+'                    Buckets: 1024  Batches: 1  Memory Usage: 9kB'
+'                    ->  Index Scan using teams_id_idx1 on teams  (cost=0.14..12.42 rows=19 width=40) (actual time=0.075..0.084 rows=19 loops=1)'
+'        ->  Index Scan using players_country_idx1 on players  (cost=0.14..0.57 rows=1 width=76) (actual time=0.004..0.004 rows=2 loops=64)'
+'              Index Cond: (country = countries.id)'
+'Planning time: 2.082 ms'
+'Execution time: 0.775 ms'
+
+3)SELECT name, count(tournament) AS registered_tournaments FROM teams INNER JOIN tournaments_results ON teams.id = tournaments_results.team GROUP BY name ORDER BY registered_tournaments DESC;
+
+До Индексации:
+'Sort  (cost=2.90..2.93 rows=10 width=40) (actual time=0.177..0.179 rows=9 loops=1)'
+'  Sort Key: (count(tournaments_results.tournament)) DESC'
+'  Sort Method: quicksort  Memory: 25kB'
+'  ->  HashAggregate  (cost=2.64..2.74 rows=10 width=40) (actual time=0.138..0.141 rows=9 loops=1)'
+'        Group Key: teams.name'
+'        ->  Hash Join  (cost=1.23..2.59 rows=10 width=36) (actual time=0.104..0.116 rows=10 loops=1)'
+'              Hash Cond: (teams.id = tournaments_results.team)'
+'              ->  Seq Scan on teams  (cost=0.00..1.19 rows=19 width=36) (actual time=0.046..0.051 rows=19 loops=1)'
+'              ->  Hash  (cost=1.10..1.10 rows=10 width=8) (actual time=0.036..0.036 rows=10 loops=1)'
+'                    Buckets: 1024  Batches: 1  Memory Usage: 9kB'
+'                    ->  Seq Scan on tournaments_results  (cost=0.00..1.10 rows=10 width=8) (actual time=0.022..0.026 rows=10 loops=1)'
+'Planning time: 1.277 ms'
+'Execution time: 0.316 ms'
+
+После Индексации:
+'Sort  (cost=25.39..25.41 rows=10 width=40) (actual time=0.248..0.250 rows=9 loops=1)'
+'  Sort Key: (count(tournaments_results.tournament)) DESC'
+'  Sort Method: quicksort  Memory: 25kB'
+'  ->  GroupAggregate  (cost=25.05..25.22 rows=10 width=40) (actual time=0.225..0.236 rows=9 loops=1)'
+'        Group Key: teams.name'
+'        ->  Sort  (cost=25.05..25.07 rows=10 width=36) (actual time=0.215..0.216 rows=10 loops=1)'
+'              Sort Key: teams.name'
+'              Sort Method: quicksort  Memory: 25kB'
+'              ->  Merge Join  (cost=0.27..24.88 rows=10 width=36) (actual time=0.145..0.167 rows=10 loops=1)'
+'                    Merge Cond: (teams.id = tournaments_results.team)'
+'                    ->  Index Scan using teams_id_idx1 on teams  (cost=0.14..12.42 rows=19 width=36) (actual time=0.024..0.029 rows=17 loops=1)'
+'                    ->  Index Scan using tournaments_results_team_idx1 on tournaments_results  (cost=0.14..12.29 rows=10 width=8) (actual time=0.112..0.118 rows=10 loops=1)'
+'Planning time: 1.292 ms'
+'Execution time: 0.373 ms'
+
+Итог/вывод: БД не обладает достаточным количеством данных для того, что бы индексация привела к повышению производительности выполнения запросов.
+При текущих данных индексация приводит только к увеличению времени выполнения запросов в, примерно, 1.5 - 2 раза
