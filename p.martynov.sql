@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.5
 -- Dumped by pg_dump version 10.0
 
--- Started on 2017-11-03 18:14:47
+-- Started on 2017-12-07 22:37:00
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2276 (class 0 OID 0)
+-- TOC entry 2294 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -340,7 +340,7 @@ CREATE TABLE tournaments_results (
 ALTER TABLE tournaments_results OWNER TO pavel;
 
 --
--- TOC entry 2250 (class 0 OID 16397)
+-- TOC entry 2268 (class 0 OID 16397)
 -- Dependencies: 185
 -- Data for Name: cities; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -361,7 +361,7 @@ COPY cities (id, name, country) FROM stdin;
 
 
 --
--- TOC entry 2251 (class 0 OID 16403)
+-- TOC entry 2269 (class 0 OID 16403)
 -- Dependencies: 186
 -- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -400,7 +400,7 @@ COPY countries (id, name, region) FROM stdin;
 
 
 --
--- TOC entry 2252 (class 0 OID 16409)
+-- TOC entry 2270 (class 0 OID 16409)
 -- Dependencies: 187
 -- Data for Name: matches; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -425,7 +425,7 @@ COPY matches (id, team_1, team_2, tournament, score_team_1, score_team_2) FROM s
 
 
 --
--- TOC entry 2253 (class 0 OID 16412)
+-- TOC entry 2271 (class 0 OID 16412)
 -- Dependencies: 188
 -- Data for Name: players; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -476,7 +476,7 @@ COPY players (id, nik_name, name, team, age, country, role) FROM stdin;
 
 
 --
--- TOC entry 2254 (class 0 OID 16418)
+-- TOC entry 2272 (class 0 OID 16418)
 -- Dependencies: 189
 -- Data for Name: regions; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -492,7 +492,7 @@ COPY regions (id, name) FROM stdin;
 
 
 --
--- TOC entry 2255 (class 0 OID 16424)
+-- TOC entry 2273 (class 0 OID 16424)
 -- Dependencies: 190
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -507,7 +507,7 @@ COPY roles (id, name) FROM stdin;
 
 
 --
--- TOC entry 2256 (class 0 OID 16430)
+-- TOC entry 2274 (class 0 OID 16430)
 -- Dependencies: 191
 -- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -536,7 +536,7 @@ COPY teams (id, name, region) FROM stdin;
 
 
 --
--- TOC entry 2257 (class 0 OID 16436)
+-- TOC entry 2275 (class 0 OID 16436)
 -- Dependencies: 192
 -- Data for Name: tournament_system; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -548,7 +548,7 @@ COPY tournament_system (id, system) FROM stdin;
 
 
 --
--- TOC entry 2258 (class 0 OID 16442)
+-- TOC entry 2276 (class 0 OID 16442)
 -- Dependencies: 193
 -- Data for Name: tournaments; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -568,7 +568,7 @@ COPY tournaments (id, name, city, date_begin, date_end, prize, system) FROM stdi
 
 
 --
--- TOC entry 2259 (class 0 OID 16448)
+-- TOC entry 2277 (class 0 OID 16448)
 -- Dependencies: 194
 -- Data for Name: tournaments_results; Type: TABLE DATA; Schema: public; Owner: pavel
 --
@@ -588,7 +588,7 @@ COPY tournaments_results (id, team, tournament, result, percent) FROM stdin;
 
 
 --
--- TOC entry 2277 (class 0 OID 0)
+-- TOC entry 2295 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: cities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -597,7 +597,7 @@ SELECT pg_catalog.setval('cities_id_seq', 11, true);
 
 
 --
--- TOC entry 2278 (class 0 OID 0)
+-- TOC entry 2296 (class 0 OID 0)
 -- Dependencies: 196
 -- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -606,7 +606,7 @@ SELECT pg_catalog.setval('countries_id_seq', 29, true);
 
 
 --
--- TOC entry 2279 (class 0 OID 0)
+-- TOC entry 2297 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: matches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -615,7 +615,7 @@ SELECT pg_catalog.setval('matches_id_seq', 15, true);
 
 
 --
--- TOC entry 2280 (class 0 OID 0)
+-- TOC entry 2298 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: players_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -624,7 +624,7 @@ SELECT pg_catalog.setval('players_id_seq', 72, true);
 
 
 --
--- TOC entry 2281 (class 0 OID 0)
+-- TOC entry 2299 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: regions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -633,7 +633,7 @@ SELECT pg_catalog.setval('regions_id_seq', 6, true);
 
 
 --
--- TOC entry 2282 (class 0 OID 0)
+-- TOC entry 2300 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -642,7 +642,7 @@ SELECT pg_catalog.setval('roles_id_seq', 5, true);
 
 
 --
--- TOC entry 2283 (class 0 OID 0)
+-- TOC entry 2301 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: t_r_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -651,7 +651,7 @@ SELECT pg_catalog.setval('t_r_id_seq', 20, true);
 
 
 --
--- TOC entry 2284 (class 0 OID 0)
+-- TOC entry 2302 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: t_s_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -660,7 +660,7 @@ SELECT pg_catalog.setval('t_s_id_seq', 2, true);
 
 
 --
--- TOC entry 2285 (class 0 OID 0)
+-- TOC entry 2303 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: teams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -669,7 +669,7 @@ SELECT pg_catalog.setval('teams_id_seq', 19, true);
 
 
 --
--- TOC entry 2286 (class 0 OID 0)
+-- TOC entry 2304 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: tournaments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -768,7 +768,7 @@ ALTER TABLE players
 
 
 --
--- TOC entry 2097 (class 2606 OID 16465)
+-- TOC entry 2099 (class 2606 OID 16465)
 -- Name: players players_name_key; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -786,7 +786,7 @@ ALTER TABLE players
 
 
 --
--- TOC entry 2099 (class 2606 OID 16467)
+-- TOC entry 2101 (class 2606 OID 16467)
 -- Name: players players_nik_name_key; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -795,7 +795,7 @@ ALTER TABLE ONLY players
 
 
 --
--- TOC entry 2101 (class 2606 OID 16469)
+-- TOC entry 2103 (class 2606 OID 16469)
 -- Name: players players_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -813,7 +813,7 @@ ALTER TABLE regions
 
 
 --
--- TOC entry 2103 (class 2606 OID 16471)
+-- TOC entry 2108 (class 2606 OID 16471)
 -- Name: regions regions_name_key; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -822,7 +822,7 @@ ALTER TABLE ONLY regions
 
 
 --
--- TOC entry 2105 (class 2606 OID 16473)
+-- TOC entry 2110 (class 2606 OID 16473)
 -- Name: regions regions_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -840,7 +840,7 @@ ALTER TABLE roles
 
 
 --
--- TOC entry 2107 (class 2606 OID 16475)
+-- TOC entry 2114 (class 2606 OID 16475)
 -- Name: roles roles_name_key; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -849,7 +849,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- TOC entry 2109 (class 2606 OID 16477)
+-- TOC entry 2116 (class 2606 OID 16477)
 -- Name: roles roles_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -867,7 +867,7 @@ ALTER TABLE teams
 
 
 --
--- TOC entry 2111 (class 2606 OID 16479)
+-- TOC entry 2120 (class 2606 OID 16479)
 -- Name: teams teams_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -876,7 +876,7 @@ ALTER TABLE ONLY teams
 
 
 --
--- TOC entry 2113 (class 2606 OID 16481)
+-- TOC entry 2123 (class 2606 OID 16481)
 -- Name: tournament_system tournament_system_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -885,7 +885,7 @@ ALTER TABLE ONLY tournament_system
 
 
 --
--- TOC entry 2115 (class 2606 OID 16483)
+-- TOC entry 2125 (class 2606 OID 16483)
 -- Name: tournament_system tournament_system_system_key; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -903,7 +903,7 @@ ALTER TABLE tournaments
 
 
 --
--- TOC entry 2117 (class 2606 OID 16485)
+-- TOC entry 2127 (class 2606 OID 16485)
 -- Name: tournaments tournaments_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -921,7 +921,7 @@ ALTER TABLE tournaments_results
 
 
 --
--- TOC entry 2119 (class 2606 OID 16487)
+-- TOC entry 2133 (class 2606 OID 16487)
 -- Name: tournaments_results tournaments_results_pk; Type: CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -939,7 +939,151 @@ ALTER TABLE tournaments_results
 
 
 --
--- TOC entry 2120 (class 2606 OID 16488)
+-- TOC entry 2096 (class 1259 OID 16610)
+-- Name: players_country_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX players_country_idx ON players USING btree (country);
+
+
+--
+-- TOC entry 2097 (class 1259 OID 16612)
+-- Name: players_country_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX players_country_idx1 ON players USING btree (country);
+
+
+--
+-- TOC entry 2104 (class 1259 OID 16603)
+-- Name: players_role_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX players_role_idx ON players USING btree (role);
+
+
+--
+-- TOC entry 2105 (class 1259 OID 16605)
+-- Name: players_role_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX players_role_idx1 ON players USING btree (role);
+
+
+--
+-- TOC entry 2106 (class 1259 OID 16607)
+-- Name: players_role_idx2; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX players_role_idx2 ON players USING btree (role);
+
+
+--
+-- TOC entry 2111 (class 1259 OID 16606)
+-- Name: roles_name_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX roles_name_idx ON roles USING btree (name);
+
+
+--
+-- TOC entry 2112 (class 1259 OID 16608)
+-- Name: roles_name_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX roles_name_idx1 ON roles USING btree (name);
+
+
+--
+-- TOC entry 2117 (class 1259 OID 16609)
+-- Name: teams_id_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX teams_id_idx ON teams USING btree (id);
+
+
+--
+-- TOC entry 2118 (class 1259 OID 16611)
+-- Name: teams_id_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX teams_id_idx1 ON teams USING btree (id);
+
+
+--
+-- TOC entry 2121 (class 1259 OID 16596)
+-- Name: teams_region_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX teams_region_idx ON teams USING btree (region);
+
+
+--
+-- TOC entry 2128 (class 1259 OID 16597)
+-- Name: tournaments_prize_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_prize_idx ON tournaments USING btree (prize);
+
+
+--
+-- TOC entry 2129 (class 1259 OID 16598)
+-- Name: tournaments_prize_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_prize_idx1 ON tournaments USING btree (prize);
+
+
+--
+-- TOC entry 2130 (class 1259 OID 16599)
+-- Name: tournaments_prize_idx2; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_prize_idx2 ON tournaments USING btree (prize);
+
+
+--
+-- TOC entry 2131 (class 1259 OID 16600)
+-- Name: tournaments_prize_idx3; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_prize_idx3 ON tournaments USING btree (prize);
+
+
+--
+-- TOC entry 2134 (class 1259 OID 16613)
+-- Name: tournaments_results_team_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_results_team_idx ON tournaments_results USING btree (team);
+
+
+--
+-- TOC entry 2135 (class 1259 OID 16614)
+-- Name: tournaments_results_team_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_results_team_idx1 ON tournaments_results USING btree (team);
+
+
+--
+-- TOC entry 2136 (class 1259 OID 16601)
+-- Name: tournaments_results_tournament_idx; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_results_tournament_idx ON tournaments_results USING btree (tournament);
+
+
+--
+-- TOC entry 2137 (class 1259 OID 16602)
+-- Name: tournaments_results_tournament_idx1; Type: INDEX; Schema: public; Owner: pavel
+--
+
+CREATE INDEX tournaments_results_tournament_idx1 ON tournaments_results USING btree (tournament);
+
+
+--
+-- TOC entry 2138 (class 2606 OID 16488)
 -- Name: cities cities_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -948,7 +1092,7 @@ ALTER TABLE ONLY cities
 
 
 --
--- TOC entry 2121 (class 2606 OID 16493)
+-- TOC entry 2139 (class 2606 OID 16493)
 -- Name: countries countries_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -957,7 +1101,7 @@ ALTER TABLE ONLY countries
 
 
 --
--- TOC entry 2122 (class 2606 OID 16498)
+-- TOC entry 2140 (class 2606 OID 16498)
 -- Name: matches matches_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -966,7 +1110,7 @@ ALTER TABLE ONLY matches
 
 
 --
--- TOC entry 2123 (class 2606 OID 16503)
+-- TOC entry 2141 (class 2606 OID 16503)
 -- Name: matches matches_fk1; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -975,7 +1119,7 @@ ALTER TABLE ONLY matches
 
 
 --
--- TOC entry 2124 (class 2606 OID 16508)
+-- TOC entry 2142 (class 2606 OID 16508)
 -- Name: matches matches_fk2; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -984,7 +1128,7 @@ ALTER TABLE ONLY matches
 
 
 --
--- TOC entry 2125 (class 2606 OID 16513)
+-- TOC entry 2143 (class 2606 OID 16513)
 -- Name: players players_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -993,7 +1137,7 @@ ALTER TABLE ONLY players
 
 
 --
--- TOC entry 2126 (class 2606 OID 16518)
+-- TOC entry 2144 (class 2606 OID 16518)
 -- Name: players players_fk1; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1002,7 +1146,7 @@ ALTER TABLE ONLY players
 
 
 --
--- TOC entry 2127 (class 2606 OID 16523)
+-- TOC entry 2145 (class 2606 OID 16523)
 -- Name: players players_fk2; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1011,7 +1155,7 @@ ALTER TABLE ONLY players
 
 
 --
--- TOC entry 2128 (class 2606 OID 16528)
+-- TOC entry 2146 (class 2606 OID 16528)
 -- Name: teams teams_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1020,7 +1164,7 @@ ALTER TABLE ONLY teams
 
 
 --
--- TOC entry 2129 (class 2606 OID 16533)
+-- TOC entry 2147 (class 2606 OID 16533)
 -- Name: tournaments tournaments_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1029,7 +1173,7 @@ ALTER TABLE ONLY tournaments
 
 
 --
--- TOC entry 2130 (class 2606 OID 16538)
+-- TOC entry 2148 (class 2606 OID 16538)
 -- Name: tournaments tournaments_fk1; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1038,7 +1182,7 @@ ALTER TABLE ONLY tournaments
 
 
 --
--- TOC entry 2131 (class 2606 OID 16543)
+-- TOC entry 2149 (class 2606 OID 16543)
 -- Name: tournaments_results tournaments_results_fk0; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1047,7 +1191,7 @@ ALTER TABLE ONLY tournaments_results
 
 
 --
--- TOC entry 2132 (class 2606 OID 16548)
+-- TOC entry 2150 (class 2606 OID 16548)
 -- Name: tournaments_results tournaments_results_fk1; Type: FK CONSTRAINT; Schema: public; Owner: pavel
 --
 
@@ -1055,7 +1199,7 @@ ALTER TABLE ONLY tournaments_results
     ADD CONSTRAINT tournaments_results_fk1 FOREIGN KEY (tournament) REFERENCES tournaments(id);
 
 
--- Completed on 2017-11-03 18:14:48
+-- Completed on 2017-12-07 22:37:03
 
 --
 -- PostgreSQL database dump complete
